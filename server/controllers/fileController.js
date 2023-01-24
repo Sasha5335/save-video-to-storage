@@ -4,11 +4,12 @@ const File = require("../models/File");
 class FileController {
   async createDir(req, res) {
     try {
-      const { filename, size } = req.body;
-      const file = new File({ filename, size });
+      const { name, size, type } = req.body;
+      const file = new File({ name, size, type });
       file.path = file.id;
 
       await fileService.createDir(file);
+      console.log(file);
       await file.save();
       return res.json(file);
     } catch (e) {

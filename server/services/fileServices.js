@@ -6,7 +6,6 @@ class FileService {
     const filePath = `${config.get("filePath")}\\${file.path}`;
     return new Promise((resolve, reject) => {
       try {
-        console.log(filePath, "88888");
         fs.mkdirSync(filePath);
         return resolve({ message: "File was created" });
       } catch (e) {

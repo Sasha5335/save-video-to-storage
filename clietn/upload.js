@@ -63,7 +63,7 @@ export function upload(selector, options = {}) {
       const reader = new FileReader();
 
       reader.onload = (ev) => {
-        console.log(ev);
+        console.log(ev, "111");
         const src = ev.target.result;
         preview.insertAdjacentHTML(
           "afterbegin",
