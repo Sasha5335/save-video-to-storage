@@ -24,6 +24,7 @@ const element = (tag, classes = [], content) => {
 function noop() {}
 
 export function upload(selector, options = {}) {
+  console.log(selector, options);
   let files = [];
   const onUpload = options.onUpload ?? noop;
   const input = document.querySelector(selector);
@@ -63,7 +64,6 @@ export function upload(selector, options = {}) {
       const reader = new FileReader();
 
       reader.onload = (ev) => {
-        console.log(ev, "111");
         const src = ev.target.result;
         preview.insertAdjacentHTML(
           "afterbegin",

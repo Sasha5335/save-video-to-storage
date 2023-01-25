@@ -1,3 +1,6 @@
+const fs = require("fs").promises;
+const path = require("path");
+import axios from "axios";
 import { upload } from "./upload.js";
 
 const hostUrl = "http://localhost:5000/file/upload";
@@ -6,26 +9,24 @@ upload("#file", {
   multi: true,
   accept: [".mp4"],
   onUpload(files, blocks) {
-    files.forEach(async (file, index) => {
+    files.forEach((file, index) => {
       const { name, size, type } = file;
-      console.log(name, size, type, "222");
+      const reader = new FileReader();
 
-      const formData = new FormData();
-      formData.append("file", file);
-      console.log(formData, "5555");
+      reader.onload = async (ev) => {
+        const src = ev.target.result;
 
-      const res = await fetch(hostUrl, {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await res.json();
-      console.log(data, "6666");
-      // fetch(hostUrl, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ name, size, type }),
-      // }).then((response) => console.log(response));
+        const formData = new FormData();
+        formData.append("filename", name);
+        formData.append("size", size);
+        formData.append("type", type);
+        formData.append("video", src);
+        console.log(formData);
+        await axios.post(hostUrl, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      };
+      reader.readAsDataURL(file);
     });
   },
 });
