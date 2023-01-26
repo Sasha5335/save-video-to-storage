@@ -20,10 +20,7 @@ class FileController {
 
   async getFiles(req, res) {
     try {
-      const files = await File.find({
-        user: req.user.id,
-        parent: req.query.parent,
-      });
+      const files = await File.find();
       return res.json({ files });
     } catch (e) {
       console.log(e);

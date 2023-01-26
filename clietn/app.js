@@ -1,8 +1,9 @@
-const fs = require("fs").promises;
 import axios from "axios";
 import { upload } from "./upload.js";
+import { output } from "./output";
 
-const hostUrl = "http://localhost:5000/file/upload";
+const uploadHostUrl = "http://localhost:5000/file/upload";
+const outputHostUrl = "http://localhost:5000/file/upload";
 
 upload("#file", {
   multi: true,
@@ -21,7 +22,7 @@ upload("#file", {
         formData.append("type", type);
         formData.append("video", src);
         console.log(formData);
-        await axios.post(hostUrl, formData, {
+        await axios.post(uploadHostUrl, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
       };
@@ -29,3 +30,5 @@ upload("#file", {
     });
   },
 });
+
+output("#output", {});
