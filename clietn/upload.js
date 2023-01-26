@@ -24,7 +24,6 @@ const element = (tag, classes = [], content) => {
 function noop() {}
 
 export function upload(selector, options = {}) {
-  console.log(selector, options);
   let files = [];
   const onUpload = options.onUpload ?? noop;
   const input = document.querySelector(selector);

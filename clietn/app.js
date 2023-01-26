@@ -1,5 +1,4 @@
 const fs = require("fs").promises;
-const path = require("path");
 import axios from "axios";
 import { upload } from "./upload.js";
 
@@ -8,8 +7,8 @@ const hostUrl = "http://localhost:5000/file/upload";
 upload("#file", {
   multi: true,
   accept: [".mp4"],
-  onUpload(files, blocks) {
-    files.forEach((file, index) => {
+  onUpload(files) {
+    files.forEach((file) => {
       const { name, size, type } = file;
       const reader = new FileReader();
 
