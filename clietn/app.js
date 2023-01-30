@@ -3,7 +3,6 @@ import { upload } from "./upload.js";
 import { output } from "./output";
 
 const uploadHostUrl = "http://localhost:5000/file/upload";
-const outputHostUrl = "http://localhost:5000/file/upload";
 
 upload("#file", {
   multi: true,
@@ -31,4 +30,4 @@ upload("#file", {
   },
 });
 
-output("#output", {});
+output("#output");

@@ -5,14 +5,11 @@ const storage = multer.diskStorage({
     console.log(file);
     cd(null, "files/");
   },
-  filename: (req, file, cd) => {
-    cd(null, new Date().toISOString() + "-" + file.name);
-  },
 });
 
 module.exports = multer({
   storage: storage,
   limits: {
-    fieldSize: 8 * 1024 * 1024,
+    fieldSize: 100 * 1024 * 1024,
   },
 });

@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const element = (tag, classes = [], content) => {
   const node = document.createElement(tag);
 
@@ -12,19 +14,34 @@ const element = (tag, classes = [], content) => {
   return node;
 };
 
-export function output(selector, options = {}) {
-  let files = [];
+export function output(selector) {
+  const outputHostUrl = "http://localhost:5000/file";
+
   const output = document.querySelector(selector);
-  console.log(output);
   const getVideo = element(
     "button",
     ["btn", "primary"],
     "Загрузить список видео"
   );
+  const videoList = element("div", ["video-list"]);
 
+  output.insertAdjacentElement("afterend", videoList);
   output.insertAdjacentElement("afterend", getVideo);
 
-  const triggerInput = () => input.click();
+  const getVideoList = async () => {
+    await axios.get(outputHostUrl).then((response) => {
+      const { files } = response.data;
+      files.forEach((file) => {
+        console.log(file);
+        videoList.insertAdjacentHTML(
+          "afterbegin",
+          `<div class="list">
+            <a href=${file.filename}>${file.filename}</a>
+          </div>`
+        );
+      });
+    });
+  };
 
-  outputVideo.addEventListener("click", triggerInput);
+  getVideo.addEventListener("click", getVideoList);
 }
