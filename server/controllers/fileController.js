@@ -1,10 +1,12 @@
 const fileService = require("../services/fileServices");
 const File = require("../models/File");
+const stream = require("stream");
 
 class FileController {
   async createDir(req, res) {
     try {
       const { filename, size, type, video } = req.body;
+
       const file = new File({ filename, size, type });
       file.path = file.id;
 
